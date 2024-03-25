@@ -18,6 +18,14 @@ import './Sarabun-normal';
 import './IBM_Plex_Sans_Thai_LoopedSarabun-normal'
 import { Page, Text, Document, StyleSheet, Image, PDFDownloadLink, Font } from '@react-pdf/renderer'
 import Itim from './fonts/Itim/Itim-Regular.ttf'
+import Athiti from './fonts/Athiti/Athiti-Regular.ttf'
+import ChakraPetch from './fonts/Chakra_Petch/ChakraPetch-Regular.ttf'
+import Charm from './fonts/Charm/Charm-Regular.ttf'
+import IBMThai from './fonts/IBM_Plex_Sans_Thai_Looped/IBMPlexSansThaiLooped-Regular.ttf'
+import K2D from './fonts/K2D/K2D-Regular.ttf'
+import KoHo from './fonts/KoHo/KoHo-Regular.ttf'
+import Niramit from './fonts/Niramit/Niramit-Regular.ttf'
+import Pridi from './fonts/Pridi/Pridi-Regular.ttf'
 
 ChartJS.register(
   CategoryScale,
@@ -31,13 +39,109 @@ ChartJS.register(
 
 Font.register({
   family: 'Itim',
-  fonts: [
-    {
-      src: Itim,
-    },
-  ]
-}
-)
+  src: Itim
+})
+
+Font.register({
+  family: 'Athiti',
+  src: Athiti
+})
+
+Font.register({
+  family: 'ChakraPetch',
+  src: ChakraPetch
+})
+
+Font.register({
+  family: 'Charm',
+  src: Charm
+})
+
+Font.register({
+  family: 'IBMThai',
+  src: IBMThai
+})
+
+Font.register({
+  family: 'K2D',
+  src: K2D
+})
+
+Font.register({
+  family: 'KoHo',
+  src: KoHo
+})
+
+Font.register({
+  family: 'Niramit',
+  src: Niramit
+})
+
+Font.register({
+  family: 'Pridi',
+  src: Pridi
+})
+
+export const styles = StyleSheet.create({
+  text_Itim: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "Itim",
+  },
+  text_Athiti: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "Athiti",
+  },
+  text_ChakraPetch: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "ChakraPetch",
+  },
+  text_Charm: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "Charm",
+  },
+  text_IBMThai: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "IBMThai",
+  },
+  text_K2D: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "K2D",
+  },
+  text_KoHo: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "KoHo",
+  },
+  text_Niramit: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "Niramit",
+  },
+  text_Pridi: {
+    margin: 12,
+    fontSize: 14,
+    textAlign: "justify",
+    fontFamily: "Pridi",
+  },
+  image: {
+    marginVertical: 15,
+    marginHorizontal: 100,
+  }
+});
 
 export const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -78,20 +182,6 @@ export const options = {
   },
 };
 
-export const styles = StyleSheet.create({
-  text: {
-    margin: 12,
-    fontSize: 14,
-    textAlign: "justify",
-    fontFamily: "Itim",
-
-  },
-  image: {
-    marginVertical: 15,
-    marginHorizontal: 100,
-  }
-});
-
 export function App() {
   const initialData = [
     { id: 1, description: 'Product 1', quantity: 5 },
@@ -120,11 +210,21 @@ export function App() {
   //   doc.save('product.pdf')
   // }
 
+  const testWord = "ทดสอบ 1 2 3"
+
   const PDFFile = () => {
     return (
       <Document>
         <Page>
-          <Text style={styles.text}>ทดสอบ 1 2 3</Text>
+          <Text style={styles.text_Itim}>Itim: ทดสอบ {testWord}</Text>
+          <Text style={styles.text_Athiti}>Athiti: {testWord}</Text>
+          <Text style={styles.text_ChakraPetch}>ChakraPetch: {testWord}</Text>
+          <Text style={styles.text_Charm}>Charm: {testWord}</Text>
+          <Text style={styles.text_IBMThai}>IBM_Thai: {testWord}</Text>
+          <Text style={styles.text_K2D}>K2D: {testWord}</Text>
+          <Text style={styles.text_KoHo}>KoHo: {testWord}</Text>
+          <Text style={styles.text_Niramit}>Niramit: {testWord}</Text>
+          <Text style={styles.text_Pridi}>Pridi: {testWord}</Text>
           {imgData != "" && <Image style={styles.image} src={`${imgData}`} />}
         </Page>
       </Document>
