@@ -11,12 +11,9 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from 'react-chartjs-2';
-import jsPDF from 'jspdf'
-import autoTable from 'jspdf-autotable'
-import { useTable, useExpanded } from 'react-table'
 import './Sarabun-normal';
 import './IBM_Plex_Sans_Thai_LoopedSarabun-normal'
-import { Page, Text, Document, StyleSheet, Image, PDFDownloadLink, Font } from '@react-pdf/renderer'
+import { Page, Text, Document, StyleSheet, Image, PDFDownloadLink, Font, PDFViewer } from '@react-pdf/renderer'
 import Itim from './fonts/Itim/Itim-Regular.ttf'
 import Athiti from './fonts/Athiti/Athiti-Regular.ttf'
 import ChakraPetch from './fonts/Chakra_Petch/ChakraPetch-Regular.ttf'
@@ -26,6 +23,10 @@ import K2D from './fonts/K2D/K2D-Regular.ttf'
 import KoHo from './fonts/KoHo/KoHo-Regular.ttf'
 import Niramit from './fonts/Niramit/Niramit-Regular.ttf'
 import Pridi from './fonts/Pridi/Pridi-Regular.ttf'
+import countryData from './data/country'
+import CountryReport from './components/CountryReport';
+import Quixote from './components/Quixote';
+import quixoteData from './data/quixote';
 
 ChartJS.register(
   CategoryScale,
@@ -82,7 +83,7 @@ Font.register({
   src: Pridi
 })
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   text_Itim: {
     margin: 12,
     fontSize: 14,
@@ -200,23 +201,14 @@ export function App() {
   };
 
   const imgData = base64
-  // const doc = new jsPDF()
-  // const exportPDfHandler = () => {
-  //   doc.addFont('IBM_Plex_Sans_Thai_LoopedSarabun', 'normal')
-  //   doc.setFont('IBM_Plex_Sans_Thai_LoopedSarabun', 'normal')
-  //   doc.text('ตัวอย่าง', 10, 10)
-  //   doc.autoTable({ html: '#product-table' })
-  //   doc.addImage(imgData, 'JPEG', 15, 40, 180, 160)
-  //   doc.save('product.pdf')
-  // }
 
-  const testWord = "ทดสอบ 1 2 3"
+  const testWord = "ทดสอบ ที่ ผู้ อยู่ กตัญญู A B C Test 1 2 3"
 
   const PDFFile = () => {
     return (
       <Document>
         <Page>
-          <Text style={styles.text_Itim}>Itim: ทดสอบ {testWord}</Text>
+          <Text style={styles.text_Itim}>Itim: {testWord}</Text>
           <Text style={styles.text_Athiti}>Athiti: {testWord}</Text>
           <Text style={styles.text_ChakraPetch}>ChakraPetch: {testWord}</Text>
           <Text style={styles.text_Charm}>Charm: {testWord}</Text>
@@ -227,6 +219,8 @@ export function App() {
           <Text style={styles.text_Pridi}>Pridi: {testWord}</Text>
           {imgData != "" && <Image style={styles.image} src={`${imgData}`} />}
         </Page>
+        <CountryReport Data={countryData} />
+        <Quixote Data={quixoteData} />
       </Document>
     )
   };
@@ -251,23 +245,20 @@ export function App() {
           ))}
         </tbody>
       </table>
-      {/* <br></br> */}
-      {/* <button className='export-pdf' onClick={exportPDfHandler}>Export PDF</button> */}
       <br></br>
       <PDFDownloadLink document={PDFFile()} fileName="react-pdf-export">
         {({ loading }) => loading ? (<button>Loading Document...</button>) : (<button>Download</button>)}
       </PDFDownloadLink>
-      {/* <p style={{color:'red'}}>หมายเหตุเรื่องการแสดงข้อมูล:</p>
-    <p style={{color:'red'}}>1.	กำหนดให้แสดงข้อมูล Bid Submission ตามข้อมูลที่กำหนดไว้ของแต่ละงาน</p>
-    <p style={{color:'red'}}>2.	* Bid Decrement แก้เป็น Bid Increment กรณี forward auction</p>
-    <p style={{color:'red'}}>3.	** Minimum Bid Decrement แก้เป็น Minimum Bid Increment กรณี forward auction</p>
-    <p style={{color:'red'}}>4.	*** Hide Hammer ให้แสดงค่าเป็น (-) เสมอ กรณีที่ Auction Type เป็น “English”</p>
-    <br></br> */}
       <h2>Line Chart </h2>
       <Line id="auction-chart" data={data} options={options} ></Line>
       <br></br>
       <button on onClick={getBase64Data}>Get Data</button>
+      <br></br>
       <img src={base64} style={{ width: '45%' }}></img>
+      <br></br>
+      <PDFViewer style={{margin: "100px"}} width="75%" height={500}>
+        <PDFFile/>
+      </PDFViewer>
     </>
   );
 }
